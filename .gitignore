@@ -41,3 +41,8 @@ next-env.d.ts
 /playwright-report/
 /test-results/
 /tests/screenshots/
+
+# debug scripts
+debug-login-flow.ts
+manual-test-login.ts
+screenshots/
