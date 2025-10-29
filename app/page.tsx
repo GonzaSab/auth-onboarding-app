@@ -106,14 +106,14 @@ export default async function HomePage() {
         )}
 
         {/* CTA Section */}
-        <div className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl shadow-xl p-12 text-center text-white">
-          <h2 className="text-3xl font-bold mb-4">
+        <div className="bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl shadow-xl p-12 text-center">
+          <h2 className="text-3xl font-bold mb-4 text-black">
             Ready to Get Started?
           </h2>
-          <p className="text-indigo-100 mb-8 max-w-2xl mx-auto">
+          <p className="text-black mb-8 max-w-2xl mx-auto">
             Explore our platform and discover all the features designed to help you achieve your goals.
           </p>
-          <button className="bg-white text-indigo-600 px-8 py-3 rounded-lg font-medium hover:bg-indigo-50 transition-colors">
+          <button className="bg-white text-blue-600 px-8 py-3 rounded-lg font-medium hover:bg-blue-50 transition-colors">
             Explore Features
           </button>
         </div>

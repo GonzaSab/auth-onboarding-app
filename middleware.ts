@@ -19,7 +19,8 @@ export async function middleware(request: NextRequest) {
 
   // If user is authenticated
   if (session) {
-    // Check if onboarding is completed
+    // Check if onboarding is completed (with cache bypass)
+    // Add timestamp to prevent caching
     const { data: profile } = await supabase
       .from('user_profiles')
       .select('onboarding_completed')
@@ -27,6 +28,11 @@ export async function middleware(request: NextRequest) {
       .single()
 
     const hasCompletedOnboarding = profile?.onboarding_completed === true
+
+    console.log('[Middleware] User:', session.user.id)
+    console.log('[Middleware] Profile:', profile)
+    console.log('[Middleware] Onboarding completed:', hasCompletedOnboarding)
+    console.log('[Middleware] Current path:', request.nextUrl.pathname)
 
     // If on login page and authenticated, redirect based on onboarding status
     if (isLoginPage) {
@@ -61,7 +67,8 @@ export const config = {
      * - favicon.ico (favicon file)
      * - public files (public folder)
      * - auth/callback (OAuth callback route)
+     * - api routes (handle their own auth)
      */
-    '/((?!_next/static|_next/image|favicon.ico|auth/callback|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    '/((?!api|_next/static|_next/image|favicon.ico|auth/callback|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],
 }

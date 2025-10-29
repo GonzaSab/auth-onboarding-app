@@ -1,12 +1,12 @@
 'use client'
 
 import { createClient } from '@/lib/supabase'
-import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function OnboardingPage() {
-  const router = useRouter()
   const supabase = createClient()
+  const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [formData, setFormData] = useState({
@@ -21,14 +21,19 @@ export default function OnboardingPage() {
     setError(null)
 
     try {
+      console.log('Starting onboarding submission...')
+
       // Get current user
       const { data: { user } } = await supabase.auth.getUser()
 
       if (!user) {
+        console.error('No user found')
         setError('You must be logged in to complete onboarding')
         setLoading(false)
         return
       }
+
+      console.log('User authenticated, submitting to API...')
 
       // Submit onboarding data to API
       const response = await fetch('/api/onboarding', {
@@ -44,15 +49,29 @@ export default function OnboardingPage() {
         }),
       })
 
+      console.log('API response status:', response.status)
+
       if (!response.ok) {
-        const data = await response.json()
+        const data = await response.json().catch(() => ({ error: 'Unknown error' }))
+        console.error('API error:', data)
         throw new Error(data.error || 'Failed to submit onboarding')
       }
 
-      // Redirect to home page - middleware will verify onboarding completion
-      router.push('/')
+      console.log('API request successful, redirecting...')
+
+      // Wait a brief moment to ensure database write is committed
+      await new Promise(resolve => setTimeout(resolve, 500))
+
+      // Refresh the router cache to ensure middleware gets fresh data
       router.refresh()
+
+      // Wait another brief moment for cache refresh
+      await new Promise(resolve => setTimeout(resolve, 300))
+
+      // Now redirect to home
+      router.push('/')
     } catch (err) {
+      console.error('Submission error:', err)
       setError(err instanceof Error ? err.message : 'An unexpected error occurred')
       setLoading(false)
     }
