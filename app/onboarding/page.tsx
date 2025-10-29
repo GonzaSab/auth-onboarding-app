@@ -89,7 +89,7 @@ export default function OnboardingPage() {
         <div className="bg-white rounded-2xl shadow-xl p-8">
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-gray-900 mb-2">
-              Welcome! Let's get to know you
+              Welcome! Let&apos;s get to know you
             </h1>
             <p className="text-gray-600">
               Please answer these quick questions to complete your onboarding
@@ -121,7 +121,7 @@ export default function OnboardingPage() {
 
             <div>
               <label htmlFor="question2" className="block text-sm font-medium text-gray-700 mb-2">
-                2. What's your current role or area of expertise?
+                2. What&apos;s your current role or area of expertise?
               </label>
               <textarea
                 id="question2"

@@ -21,7 +21,7 @@ export default async function HomePage() {
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             {user?.email ? `Hello, ${user.email}! ` : ''}
-            You've successfully completed onboarding. Here's what you can do next.
+            You&apos;ve successfully completed onboarding. Here&apos;s what you can do next.
           </p>
         </div>
 
@@ -87,7 +87,7 @@ export default async function HomePage() {
               </div>
               <div>
                 <h3 className="text-sm font-medium text-gray-500 mb-2">
-                  What's your current role or area of expertise?
+                  What&apos;s your current role or area of expertise?
                 </h3>
                 <p className="text-gray-900">
                   {profile.question_2_answer}
