@@ -14,11 +14,13 @@ test.describe.serial('Email Signup and Onboarding Flow', () => {
     // Wait for tab to switch
     await expect(page.getByText('Create an account to begin your journey')).toBeVisible()
 
-    // Fill in email
-    await page.locator('input[type="email"]').fill('***REMOVED***')
+    // Fill in email and password from environment variables
+    const testEmail = process.env.TEST_USER_EMAIL || 'test@example.com'
+    const testPassword = process.env.TEST_USER_PASSWORD || 'password123'
+    await page.locator('input[type="email"]').fill(testEmail)
 
     // Fill in password
-    await page.locator('input[type="password"]').fill('***REMOVED***')
+    await page.locator('input[type="password"]').fill(testPassword)
 
     // Click Sign Up button (the submit button inside the form)
     await page.locator('form button[type="submit"]').click()
@@ -64,13 +66,15 @@ test.describe.serial('Email Signup and Onboarding Flow', () => {
     // Make sure we're on Sign In tab (default)
     await expect(page.getByText('Sign in to get started with your onboarding journey')).toBeVisible()
 
-    // Fill in email
-    await page.locator('input[type="email"]').fill('***REMOVED***')
+    // Fill in email and password from environment variables
+    const testEmail = process.env.TEST_USER_EMAIL || 'test@example.com'
+    const testPassword = process.env.TEST_USER_PASSWORD || 'password123'
+    await page.locator('input[type="email"]').fill(testEmail)
 
     // Fill in password
-    await page.locator('input[type="password"]').fill('***REMOVED***')
+    await page.locator('input[type="password"]').fill(testPassword)
 
-    console.log('Attempting to sign in with ***REMOVED***...')
+    console.log(`Attempting to sign in with ${testEmail}...`)
 
     // Click Sign In button (the submit button inside the form)
     await page.locator('form button[type="submit"]').click()

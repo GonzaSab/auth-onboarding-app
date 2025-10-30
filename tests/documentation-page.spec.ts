@@ -12,9 +12,11 @@ test.describe('Documentation Landing Page', () => {
       fullPage: false
     })
 
-    // Fill in email and password
-    await page.locator('input[type="email"]').fill('***REMOVED***')
-    await page.locator('input[type="password"]').fill('***REMOVED***')
+    // Fill in email and password from environment variables
+    const testEmail = process.env.TEST_USER_EMAIL || 'test@example.com'
+    const testPassword = process.env.TEST_USER_PASSWORD || 'password123'
+    await page.locator('input[type="email"]').fill(testEmail)
+    await page.locator('input[type="password"]').fill(testPassword)
 
     // Take screenshot with credentials filled
     await page.screenshot({
@@ -59,7 +61,8 @@ test.describe('Documentation Landing Page', () => {
     await expect(page.locator('text=Documentación completa sobre Multi-Context Processing Systems')).toBeVisible()
 
     // Verify user greeting is visible
-    await expect(page.locator('text=Hola, ***REMOVED***')).toBeVisible()
+    const testEmail = process.env.TEST_USER_EMAIL || 'test@example.com'
+    await expect(page.locator(`text=Hola, ${testEmail}`)).toBeVisible()
 
     // Verify CTA buttons
     await expect(page.locator('a[href="#introducción"]')).toBeVisible()
