@@ -129,3 +129,8 @@ Uses `@supabase/ssr` for proper cookie handling in Next.js 14.
 - Middleware runs server-side (can't be bypassed)
 - HTTP-only cookies for sessions
 - No sensitive keys in client code
+
+### Testing
+- Test credentials are stored in `.env.test.local` (not committed to git)
+- Playwright tests use `TEST_USER_EMAIL` and `TEST_USER_PASSWORD` environment variables
+- See `.env.test.local` file for test account credentials

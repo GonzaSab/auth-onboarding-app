@@ -27,10 +27,11 @@ export default async function RootLayout({
             <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
               <div className="flex justify-between items-center">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg" />
-                  <span className="text-xl font-bold text-gray-900">
-                    MyApp
-                  </span>
+                  <img
+                    src="/images/claude-logo.svg"
+                    alt="Claude Code"
+                    className="h-6"
+                  />
                 </div>
                 <div className="flex items-center gap-4">
                   <span className="text-sm text-gray-600">

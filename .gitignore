@@ -42,7 +42,9 @@ next-env.d.ts
 /test-results/
 /tests/screenshots/
 
+# screenshots (debugging)
+/screenshots/
+
 # debug scripts
 debug-login-flow.ts
 manual-test-login.ts
-screenshots/.secrets-to-remove.txt
