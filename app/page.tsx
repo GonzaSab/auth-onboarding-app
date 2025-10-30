@@ -1,123 +1,104 @@
 import { createServerSupabaseClient } from '@/lib/supabase'
+import { promises as fs } from 'fs'
+import path from 'path'
+import DocumentationContent from './components/DocumentationContent'
 
 export default async function HomePage() {
   const supabase = await createServerSupabaseClient()
   const { data: { user } } = await supabase.auth.getUser()
 
-  // Fetch user profile to show personalized welcome
-  const { data: profile } = await supabase
-    .from('user_profiles')
-    .select('*')
-    .eq('id', user?.id || '')
-    .single()
+  // Load markdown documentation
+  const markdownPath = path.join(process.cwd(), 'public', 'docs', 'mcps-documentation.md')
+  const markdownContent = await fs.readFile(markdownPath, 'utf-8')
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-cyan-50">
-      <div className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
-        {/* Hero Section */}
-        <div className="text-center mb-16">
-          <h1 className="text-5xl font-bold text-gray-900 mb-4">
-            Welcome to Your Dashboard
-          </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            {user?.email ? `Hello, ${user.email}! ` : ''}
-            You&apos;ve successfully completed onboarding. Here&apos;s what you can do next.
-          </p>
+    <div className="min-h-screen bg-white">
+      {/* Hero Section */}
+      <div className="bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600">
+        <div className="max-w-screen-2xl mx-auto px-6 lg:px-12 py-16 lg:py-24">
+          <div className="max-w-4xl">
+            {user?.email && (
+              <div className="inline-block bg-white/10 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-medium mb-6">
+                👋 Hola, {user.email}
+              </div>
+            )}
+
+            <h1 className="text-4xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+              MCPS & Agents con Claude Code
+            </h1>
+
+            <p className="text-xl lg:text-2xl text-blue-100 mb-8 leading-relaxed max-w-3xl">
+              Documentación completa sobre Multi-Context Processing Systems, Agents, instalación y configuración de Claude Code, comandos importantes y buenas prácticas.
+            </p>
+
+            <div className="flex flex-wrap gap-4">
+              <a
+                href="#introducción"
+                className="inline-flex items-center px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-blue-50 transition-colors shadow-lg hover:shadow-xl"
+              >
+                Comenzar
+                <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </a>
+
+              <a
+                href="#configuración-inicial-de-claude"
+                className="inline-flex items-center px-6 py-3 bg-white/10 backdrop-blur-sm text-white font-semibold rounded-lg hover:bg-white/20 transition-colors border-2 border-white/20"
+              >
+                Configuración Inicial
+              </a>
+            </div>
+
+            {/* Quick Stats */}
+            <div className="mt-12 grid grid-cols-3 gap-6 max-w-2xl">
+              <div className="text-center">
+                <div className="text-3xl lg:text-4xl font-bold text-white mb-1">14</div>
+                <div className="text-sm text-blue-200">Secciones</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl lg:text-4xl font-bold text-white mb-1">400+</div>
+                <div className="text-sm text-blue-200">Líneas de Doc</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl lg:text-4xl font-bold text-white mb-1">∞</div>
+                <div className="text-sm text-blue-200">Posibilidades</div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Features Grid */}
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
-          <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
-            <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
-              <svg className="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-            </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">
-              Quick Start
-            </h3>
-            <p className="text-gray-600">
-              Get started quickly with our comprehensive guides and tutorials designed to help you succeed.
-            </p>
-          </div>
-
-          <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
-            <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-              <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-              </svg>
-            </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">
-              Documentation
-            </h3>
-            <p className="text-gray-600">
-              Access detailed documentation and resources to make the most of your experience.
-            </p>
-          </div>
-
-          <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
-            <div className="w-12 h-12 bg-cyan-100 rounded-lg flex items-center justify-center mb-4">
-              <svg className="w-6 h-6 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-              </svg>
-            </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">
-              Community
-            </h3>
-            <p className="text-gray-600">
-              Join our vibrant community of users and experts to share knowledge and experiences.
-            </p>
-          </div>
-        </div>
-
-        {/* Your Onboarding Responses */}
-        {profile && (
-          <div className="bg-white rounded-2xl shadow-lg p-8 mb-16">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">
-              Your Onboarding Responses
-            </h2>
-            <div className="space-y-6">
-              <div>
-                <h3 className="text-sm font-medium text-gray-500 mb-2">
-                  What brings you here today?
-                </h3>
-                <p className="text-gray-900">
-                  {profile.question_1_answer}
-                </p>
-              </div>
-              <div>
-                <h3 className="text-sm font-medium text-gray-500 mb-2">
-                  What&apos;s your current role or area of expertise?
-                </h3>
-                <p className="text-gray-900">
-                  {profile.question_2_answer}
-                </p>
-              </div>
-              <div>
-                <h3 className="text-sm font-medium text-gray-500 mb-2">
-                  How can we help you succeed?
-                </h3>
-                <p className="text-gray-900">
-                  {profile.question_3_answer}
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* CTA Section */}
-        <div className="bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl shadow-xl p-12 text-center">
-          <h2 className="text-3xl font-bold mb-4 text-black">
-            Ready to Get Started?
-          </h2>
-          <p className="text-black mb-8 max-w-2xl mx-auto">
-            Explore our platform and discover all the features designed to help you achieve your goals.
-          </p>
-          <button className="bg-white text-blue-600 px-8 py-3 rounded-lg font-medium hover:bg-blue-50 transition-colors">
-            Explore Features
-          </button>
+        {/* Wave Separator */}
+        <div className="relative">
+          <svg className="w-full h-12 lg:h-16 text-white" viewBox="0 0 1440 48" fill="currentColor" preserveAspectRatio="none">
+            <path d="M0,32L120,37.3C240,43,480,53,720,48C960,43,1200,21,1320,10.7L1440,0L1440,48L1320,48C1200,48,960,48,720,48C480,48,240,48,120,48L0,48Z" />
+          </svg>
         </div>
       </div>
+
+      {/* Documentation Content */}
+      <div className="py-12">
+        <DocumentationContent markdown={markdownContent} />
+      </div>
+
+      {/* Footer */}
+      <footer className="border-t border-gray-200 bg-gray-50">
+        <div className="max-w-screen-2xl mx-auto px-6 lg:px-12 py-8">
+          <div className="flex flex-col lg:flex-row justify-between items-center gap-4">
+            <p className="text-gray-600 text-sm">
+              © 2025 MCPS & Claude Code Documentation. Todos los derechos reservados.
+            </p>
+            <div className="flex gap-6">
+              <a href="https://docs.anthropic.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-blue-600 text-sm transition-colors">
+                Anthropic Docs
+              </a>
+              <a href="https://github.com/GonzaSab/auth-onboarding-app" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-blue-600 text-sm transition-colors">
+                GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
