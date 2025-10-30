@@ -45,4 +45,4 @@ next-env.d.ts
 # debug scripts
 debug-login-flow.ts
 manual-test-login.ts
-screenshots/
+screenshots/.secrets-to-remove.txt

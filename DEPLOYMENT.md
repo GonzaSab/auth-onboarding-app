@@ -27,8 +27,8 @@ After the initial deployment, add your environment variables:
 3. Add the following environment variables:
 
 ```
-NEXT_PUBLIC_SUPABASE_URL=***REMOVED***
-NEXT_PUBLIC_SUPABASE_ANON_KEY=***REMOVED***
+NEXT_PUBLIC_SUPABASE_URL=your-supabase-project-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
 ```
 
 4. Click **"Deploy"** to trigger a new deployment with the environment variables
@@ -62,14 +62,14 @@ In the same URL Configuration page:
 2. Navigate to **APIs & Services** > **Credentials**
 3. Select your OAuth 2.0 Client ID
 4. Under **Authorized redirect URIs**, add:
-   - `***REMOVED***/auth/v1/callback`
+   - `https://YOUR_SUPABASE_PROJECT_ID.supabase.co/auth/v1/callback`
 5. Click **Save**
 
 #### GitHub OAuth
 1. Go to [GitHub Developer Settings](https://github.com/settings/developers)
 2. Click on your OAuth App
 3. Under **Authorization callback URL**, ensure it's set to:
-   - `***REMOVED***/auth/v1/callback`
+   - `https://YOUR_SUPABASE_PROJECT_ID.supabase.co/auth/v1/callback`
 4. Click **Update application**
 
 ## Step 5: Test Your Deployment

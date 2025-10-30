@@ -24,11 +24,8 @@ While it's building, add your environment variables:
 4. Add these two variables:
 
 ```
-NEXT_PUBLIC_SUPABASE_URL=***REMOVED***
-```
-
-```
-NEXT_PUBLIC_SUPABASE_ANON_KEY=***REMOVED***
+NEXT_PUBLIC_SUPABASE_URL=your-supabase-project-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
 ```
 
 4. Railway will automatically redeploy with the new variables
@@ -41,7 +38,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=***REMOVED***
 
 ## 4. Update Supabase (CRITICAL)
 
-Go to [Supabase Dashboard](https://supabase.com/dashboard/project/***REMOVED***):
+Go to your Supabase Dashboard:
 
 ### Authentication > URL Configuration
 
