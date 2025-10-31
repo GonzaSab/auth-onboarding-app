@@ -5,9 +5,9 @@
 
 Este documento está pensado como guía progresiva y práctica para que un lector —desde principiante hasta intermedio— pueda instalar, configurar y orquestar un ecosistema de Claude Code con MCPS y Agents. El orden está diseñado para enseñar primero los elementos imprescindibles (configuración y comandos), y luego profundizar en agentes, memoria, comandos personalizados y orquestación compleja.
 
----
+**Repo del video:** [https://github.com/GonzaSab/auth-onboarding-app](https://github.com/GonzaSab/auth-onboarding-app)
 
-## **Repo del video:** [https://github.com/GonzaSab/auth-onboarding-app](https://github.com/GonzaSab/auth-onboarding-app)
+---
 
 ## Configuración inicial de Claude
 
