@@ -7,6 +7,8 @@ Este documento está pensado como guía progresiva y práctica para que un lecto
 
 ---
 
+## **Repo del video:** [https://github.com/GonzaSab/auth-onboarding-app](https://github.com/GonzaSab/auth-onboarding-app)
+
 ## Configuración inicial de Claude
 
 ### Requisitos
