@@ -89,10 +89,10 @@ export default function OnboardingPage() {
         <div className="bg-white rounded-2xl shadow-xl p-8">
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-gray-900 mb-2">
-              Welcome! Let&apos;s get to know you
+              ¡Bienvenido!
             </h1>
             <p className="text-gray-600">
-              Please answer these quick questions to complete your onboarding
+              Estas preguntas me ayudan a crear mejor contenido y videos para vos. Respondelas con la mayor honestidad posible, así puedo entender mejor qué es lo que necesitás.
             </p>
           </div>
 
@@ -105,7 +105,7 @@ export default function OnboardingPage() {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label htmlFor="question1" className="block text-sm font-medium text-gray-700 mb-2">
-                1. What brings you here today?
+                1. Contame un poco sobre vos
               </label>
               <textarea
                 id="question1"
@@ -113,7 +113,7 @@ export default function OnboardingPage() {
                 value={formData.question1}
                 onChange={(e) => handleChange('question1', e.target.value)}
                 className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"
-                placeholder="Tell us about your goals and what you hope to achieve..."
+                placeholder="Tu edad, a qué te dedicás, qué experiencia tenés con programación o IA..."
                 disabled={loading}
                 required
               />
@@ -121,7 +121,7 @@ export default function OnboardingPage() {
 
             <div>
               <label htmlFor="question2" className="block text-sm font-medium text-gray-700 mb-2">
-                2. What&apos;s your current role or area of expertise?
+                2. ¿Qué te trae por acá?
               </label>
               <textarea
                 id="question2"
@@ -129,7 +129,7 @@ export default function OnboardingPage() {
                 value={formData.question2}
                 onChange={(e) => handleChange('question2', e.target.value)}
                 className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"
-                placeholder="Share your background and experience..."
+                placeholder="¿Querés aprender a programar? ¿Construir algo específico? ¿Automatizar tu trabajo? ¿Independencia financiera? Contame..."
                 disabled={loading}
                 required
               />
@@ -137,7 +137,7 @@ export default function OnboardingPage() {
 
             <div>
               <label htmlFor="question3" className="block text-sm font-medium text-gray-700 mb-2">
-                3. How can we help you succeed?
+                3. ¿Qué te gustaría ver en futuros videos?
               </label>
               <textarea
                 id="question3"
@@ -145,7 +145,7 @@ export default function OnboardingPage() {
                 value={formData.question3}
                 onChange={(e) => handleChange('question3', e.target.value)}
                 className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"
-                placeholder="What kind of support or resources would be most valuable to you..."
+                placeholder="Temas relacionados con IA, automatización, herramientas como Cursor, Claude Code, Bolt.new, etc..."
                 disabled={loading}
                 required
               />
@@ -159,10 +159,10 @@ export default function OnboardingPage() {
               {loading ? (
                 <span className="flex items-center justify-center gap-2">
                   <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  Submitting...
+                  Enviando...
                 </span>
               ) : (
-                'Complete Onboarding'
+                'Completar'
               )}
             </button>
           </form>
