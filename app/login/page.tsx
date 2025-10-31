@@ -9,6 +9,7 @@ export default function LoginPage() {
   const supabase = createClient()
   const [loading, setLoading] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [successMessage, setSuccessMessage] = useState<string | null>(null)
   const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signin')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -18,6 +19,7 @@ export default function LoginPage() {
     try {
       setLoading(provider)
       setError(null)
+      setSuccessMessage(null)
 
       const { error } = await supabase.auth.signInWithOAuth({
         provider,
@@ -53,6 +55,7 @@ export default function LoginPage() {
     try {
       setLoading('email')
       setError(null)
+      setSuccessMessage(null)
 
       if (authMode === 'signup') {
         const { data: signUpData, error } = await supabase.auth.signUp({
@@ -69,6 +72,19 @@ export default function LoginPage() {
           return
         }
 
+        // Check if email confirmation is required
+        const needsEmailConfirmation = signUpData.user && !signUpData.session
+
+        if (needsEmailConfirmation) {
+          // Email confirmation is enabled - show success message
+          setLoading(null)
+          setSuccessMessage('Account created! Check your email to confirm your account. Then return here to sign in.')
+          // Switch to sign in mode for convenience
+          setAuthMode('signin')
+          return
+        }
+
+        // Email confirmation is disabled - proceed with profile creation and login
         // Create initial user profile immediately after signup
         if (signUpData.user) {
           const { error: profileError } = await supabase
@@ -162,6 +178,7 @@ export default function LoginPage() {
               onClick={() => {
                 setAuthMode('signin')
                 setError(null)
+                setSuccessMessage(null)
               }}
               className={`flex-1 py-2 px-4 rounded-md font-medium transition-all ${
                 authMode === 'signin'
@@ -175,6 +192,7 @@ export default function LoginPage() {
               onClick={() => {
                 setAuthMode('signup')
                 setError(null)
+                setSuccessMessage(null)
               }}
               className={`flex-1 py-2 px-4 rounded-md font-medium transition-all ${
                 authMode === 'signup'
@@ -186,6 +204,16 @@ export default function LoginPage() {
             </button>
           </div>
 
+          {/* Success Message */}
+          {successMessage && (
+            <div className="mb-6 p-4 border rounded-lg bg-green-50 border-green-200">
+              <p className="text-sm text-green-700">
+                {successMessage}
+              </p>
+            </div>
+          )}
+
+          {/* Error Message */}
           {error && (
             <div className={`mb-6 p-4 border rounded-lg ${
               showRefreshButton
