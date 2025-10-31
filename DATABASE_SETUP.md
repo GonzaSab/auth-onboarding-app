@@ -30,13 +30,6 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key-here
   - Development: `http://localhost:3000/auth/callback`
   - Production: `https://yourdomain.com/auth/callback`
 
-### GitHub OAuth
-- Toggle "GitHub" to enabled
-- Add your GitHub OAuth credentials (Client ID and Secret)
-- Set authorized redirect URLs:
-  - Development: `http://localhost:3000/auth/callback`
-  - Production: `https://yourdomain.com/auth/callback`
-
 ### Site URL Configuration
 In **Authentication** > **URL Configuration**, set:
 - **Site URL**: `http://localhost:3000` (for development)

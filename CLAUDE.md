@@ -5,7 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project Overview
 
 This is a user authentication and onboarding web application built with Supabase. The core flow:
-1. Users authenticate via Supabase (social login: Google, GitHub, etc.)
+1. Users authenticate via Supabase (social login: Google)
 2. New users complete a one-time 3-question onboarding questionnaire
 3. Returning users bypass the questionnaire and go directly to the landing page
 
@@ -83,7 +83,6 @@ Full setup instructions with RLS policies are in DATABASE_SETUP.md.
 ### Authentication Providers
 Enable social auth providers in Supabase Dashboard:
 - Google OAuth (recommended)
-- GitHub OAuth (recommended)
 - Configure redirect URLs for development and production
 
 ## Key Implementation Details
@@ -105,7 +104,7 @@ Three client functions for different contexts:
 Uses `@supabase/ssr` for proper cookie handling in Next.js 14.
 
 ### Key Routes
-- `/login` - Social auth buttons (Google, GitHub)
+- `/login` - Social auth button (Google)
 - `/onboarding` - 3-question form (protected, new users only)
 - `/` - Landing page (protected, completed onboarding)
 - `/auth/callback` - OAuth redirect handler

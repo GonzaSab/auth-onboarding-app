@@ -4,7 +4,7 @@ A modern web application built with Next.js 14 and Supabase that implements user
 
 ## Features
 
-- **Social Authentication**: Login with Google or GitHub via Supabase Auth
+- **Social Authentication**: Login with Google via Supabase Auth
 - **One-Time Onboarding**: New users complete a 3-question questionnaire
 - **Smart Routing**: Automatic redirects based on authentication and onboarding status
 - **Session Management**: Secure session handling with HTTP-only cookies
@@ -68,7 +68,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
 Follow the detailed instructions in [DATABASE_SETUP.md](./DATABASE_SETUP.md) to:
 - Create the `user_profiles` table
 - Set up Row Level Security policies
-- Enable Google and GitHub OAuth providers
+- Enable Google OAuth provider
 
 ### 4. Run Development Server
 
@@ -105,7 +105,7 @@ Visit [http://localhost:3000](http://localhost:3000) to see the app.
 
 ### Authentication Flow
 
-1. **Login**: User clicks "Sign in with Google" or "Sign in with GitHub"
+1. **Login**: User clicks "Sign in with Google"
 2. **OAuth**: Supabase handles the OAuth flow with the provider
 3. **Callback**: User returns to `/auth/callback` which exchanges code for session
 4. **Middleware**: Checks if user exists and onboarding status

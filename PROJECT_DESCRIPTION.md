@@ -6,7 +6,7 @@ Key Components:
 Authentication Layer
 
 Supabase integration for user management
-Social login providers (Google, GitHub, etc.)
+Social login provider (Google)
 Session management and protected routes
 
 

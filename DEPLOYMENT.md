@@ -65,13 +65,6 @@ In the same URL Configuration page:
    - `https://YOUR_SUPABASE_PROJECT_ID.supabase.co/auth/v1/callback`
 5. Click **Save**
 
-#### GitHub OAuth
-1. Go to [GitHub Developer Settings](https://github.com/settings/developers)
-2. Click on your OAuth App
-3. Under **Authorization callback URL**, ensure it's set to:
-   - `https://YOUR_SUPABASE_PROJECT_ID.supabase.co/auth/v1/callback`
-4. Click **Update application**
-
 ## Step 5: Test Your Deployment
 
 1. Visit your Railway URL: `https://your-app-name.up.railway.app`
@@ -79,7 +72,6 @@ In the same URL Configuration page:
    - ✅ Email/password signup
    - ✅ Email/password login
    - ✅ Google OAuth (if configured)
-   - ✅ GitHub OAuth (if configured)
 3. Complete the onboarding questionnaire
 4. Verify you're redirected to the landing page
 
@@ -140,7 +132,6 @@ When you push changes to GitHub:
 - [ ] Updated Supabase Site URL
 - [ ] Added Railway URL to Supabase Redirect URLs
 - [ ] Updated Google OAuth redirect URIs (if using)
-- [ ] Updated GitHub OAuth redirect URI (if using)
 - [ ] Tested authentication flow in production
 - [ ] Verified onboarding flow works
 
