@@ -12,6 +12,7 @@ export default function LoginPage() {
   const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signin')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [showRefreshButton, setShowRefreshButton] = useState(false)
 
   const handleSocialLogin = async (provider: 'google') => {
     try {
@@ -84,8 +85,24 @@ export default function LoginPage() {
         }
 
         // Sign up successful - redirect and let middleware handle onboarding
-        router.push('/')
-        router.refresh()
+        // Set a timeout to handle slow navigation
+        const navigationTimeout = setTimeout(() => {
+          setLoading(null)
+          setShowRefreshButton(true)
+          setError('Sign up successful! If the page doesn\'t redirect automatically, please click the refresh button below.')
+        }, 15000) // 15 second timeout
+
+        try {
+          router.push('/')
+          router.refresh()
+          // If navigation succeeds quickly, clear the timeout
+          clearTimeout(navigationTimeout)
+        } catch (navError) {
+          clearTimeout(navigationTimeout)
+          setError('Navigation failed. Please click the refresh button to continue.')
+          setLoading(null)
+          setShowRefreshButton(true)
+        }
       } else {
         const { error } = await supabase.auth.signInWithPassword({
           email,
@@ -99,8 +116,24 @@ export default function LoginPage() {
         }
 
         // Sign in successful - redirect and let middleware handle routing
-        router.push('/')
-        router.refresh()
+        // Set a timeout to handle slow navigation
+        const navigationTimeout = setTimeout(() => {
+          setLoading(null)
+          setShowRefreshButton(true)
+          setError('Login successful! If the page doesn\'t redirect automatically, please click the refresh button below.')
+        }, 15000) // 15 second timeout
+
+        try {
+          router.push('/')
+          router.refresh()
+          // If navigation succeeds quickly, clear the timeout
+          clearTimeout(navigationTimeout)
+        } catch (navError) {
+          clearTimeout(navigationTimeout)
+          setError('Navigation failed. Please click the refresh button to continue.')
+          setLoading(null)
+          setShowRefreshButton(true)
+        }
       }
     } catch (err) {
       setError('An unexpected error occurred')
@@ -154,8 +187,22 @@ export default function LoginPage() {
           </div>
 
           {error && (
-            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
-              <p className="text-red-700 text-sm">{error}</p>
+            <div className={`mb-6 p-4 border rounded-lg ${
+              showRefreshButton
+                ? 'bg-yellow-50 border-yellow-200'
+                : 'bg-red-50 border-red-200'
+            }`}>
+              <p className={`text-sm ${showRefreshButton ? 'text-yellow-700' : 'text-red-700'}`}>
+                {error}
+              </p>
+              {showRefreshButton && (
+                <button
+                  onClick={() => window.location.reload()}
+                  className="mt-3 w-full py-2 px-4 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-all"
+                >
+                  Refresh Page
+                </button>
+              )}
             </div>
           )}
 
@@ -196,10 +243,13 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading !== null}
-              className="w-full py-3 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+              className="w-full py-3 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {loading === 'email' ? (
-                <div className="w-5 h-5 border-2 border-indigo-200 border-t-white rounded-full animate-spin" />
+                <>
+                  <div className="w-5 h-5 border-2 border-indigo-200 border-t-white rounded-full animate-spin" />
+                  <span>Logging you in... this may take a moment</span>
+                </>
               ) : (
                 authMode === 'signin' ? 'Sign In' : 'Sign Up'
               )}
