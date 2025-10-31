@@ -5,7 +5,13 @@ import type { NextRequest } from 'next/server'
 export async function GET(request: NextRequest) {
   const requestUrl = new URL(request.url)
   const code = requestUrl.searchParams.get('code')
-  const origin = requestUrl.origin
+
+  // Get the correct origin from headers (for Railway/proxy support)
+  const forwardedHost = request.headers.get('x-forwarded-host')
+  const forwardedProto = request.headers.get('x-forwarded-proto')
+  const origin = forwardedHost && forwardedProto
+    ? `${forwardedProto}://${forwardedHost}`
+    : requestUrl.origin
 
   // Create redirect response
   const redirectUrl = new URL('/', origin)
